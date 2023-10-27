@@ -20,19 +20,17 @@ List<JournalCard> generateListJournalCards(
   //Preenche os espaços que possuem entradas no banco
   database.forEach(
     (key, value) {
-      if (value.createdAt
-          .isAfter(currentDay.subtract(Duration(days: windowPage)))) {
-        int difference = value.createdAt
-            .difference(currentDay.subtract(Duration(days: windowPage)))
-            .inDays
-            .abs();
+      Duration duration = value.createdAt.toUtc()
+          .difference(currentDay.toUtc().subtract(Duration(days: windowPage)));
+      int difference = (duration.inMinutes/(60.0*24)).ceil();
 
+      if (difference>=0 && difference<=windowPage) {
         list[difference] = JournalCard(
-          showedDate: list[difference].showedDate,
+          showedDate: value.createdAt,
           journal: value,
           refreshFunction: refreshFunction,
         );
-      }
+      }     
     },
   );
   return list;

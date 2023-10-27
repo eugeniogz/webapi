@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // O último dia apresentado na lista
-  DateTime currentDay = DateTime.now();
+  DateTime currentDay = DateTime.now().toUtc();
 
   // Tamanho da lista
   int windowPage = 10;
@@ -35,17 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         // Título basado no dia atual
-        title: Text(
-          "${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}",
-        ),
+        title: Text("${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}",),
         actions: [
-          IconButton(
-            onPressed: () {
+          IconButton( onPressed: () {
               refresh();
             },
-            icon: const Icon(
-              Icons.refresh,
-            ),
+            icon: const Icon(Icons.refresh,),
           ),
         ],
       ),

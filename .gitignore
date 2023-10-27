@@ -4,6 +4,7 @@ android
 web
 macos
 linux
+windows
 
 *.class
 *.log
