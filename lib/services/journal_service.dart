@@ -8,7 +8,7 @@ import '../models/journal.dart';
 
 class JournalService {
   // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
-  static const String url = "http://192.168.0.36:3001/";
+  static const String url = "http://192.168.0.54:3001/";
   static const String resource = "journals/";
 
   http.Client client = InterceptedClient.build(
@@ -33,6 +33,38 @@ class JournalService {
     );
 
     if (response.statusCode == 201) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> edit(Journal journal) async {
+    String journalJSON = json.encode(journal.toMap());
+    String id = journal.id;
+    http.Response response = await client.patch(
+      Uri.parse("$url$resource$id"),
+      headers: {'Content-type': 'application/json'},
+      body: journalJSON,
+    );
+
+    if (response.statusCode < 300) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> delete(Journal journal) async {
+    //String journalJSON = json.encode(journal.toMap());
+    String id = journal.id;
+    http.Response response = await client.delete(
+      Uri.parse("$url$resource$id"),
+      headers: {'Content-type': 'application/json'},
+      //body: journalJSON,
+    );
+
+    if (response.statusCode < 300) {
       return true;
     }
 

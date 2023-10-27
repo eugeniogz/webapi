@@ -1,4 +1,10 @@
 # Miscellaneous
+ios
+android
+web
+macos
+linux
+
 *.class
 *.log
 *.pyc
@@ -33,7 +39,6 @@ migrate_working_dir/
 /build/
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols

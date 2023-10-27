@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           final journal = routeSettings.arguments as Journal;
           return MaterialPageRoute(
             builder: (context) {
-              return AddJournalScreen(journal: journal);
+              return AddJournalScreen(journal: journal, edit: routeSettings.name == "edit-journal");
             },
           );
         }

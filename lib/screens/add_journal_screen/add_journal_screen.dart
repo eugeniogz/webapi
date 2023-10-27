@@ -5,7 +5,10 @@ import 'package:flutter_webapi_first_course/services/journal_service.dart';
 
 class AddJournalScreen extends StatefulWidget {
   final Journal journal;
-  const AddJournalScreen({Key? key, required this.journal}) : super(key: key);
+  final bool edit;
+  const AddJournalScreen(
+      {Key? key, required this.journal, required this.edit})
+      : super(key: key);
 
   @override
   State<AddJournalScreen> createState() => _AddJournalScreenState();
@@ -16,13 +19,14 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    contentController.text = widget.journal.content;
     return Scaffold(
       appBar: AppBar(
         title: Text(WeekDay(widget.journal.createdAt).toString()),
         actions: [
           IconButton(
             onPressed: () {
-              registerJournal(context);
+              widget.edit?editJournal(context):registerJournal(context);
             },
             icon: const Icon(Icons.check),
           )
@@ -53,6 +57,20 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
       }
     });
   }
+
+  editJournal(BuildContext context) async {
+    JournalService journalService = JournalService();
+    widget.journal.content = contentController.text;
+    journalService.edit(widget.journal).then((value) {
+      if (value) {
+        Navigator.pop(context, DisposeStatus.success);
+      } else {
+        Navigator.pop(context, DisposeStatus.error);
+      }
+    });
+  }
+  
+  
 }
 
 enum DisposeStatus { exit, error, success }

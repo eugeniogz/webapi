@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/helpers/weekday.dart';
 import 'package:flutter_webapi_first_course/models/journal.dart';
 import 'package:flutter_webapi_first_course/screens/add_journal_screen/add_journal_screen.dart';
+import 'package:flutter_webapi_first_course/services/journal_service.dart';
 import 'package:uuid/uuid.dart';
 
 class JournalCard extends StatelessWidget {
@@ -67,8 +68,10 @@ class JournalCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Expanded(
-                child: Container(
+              Row(children: [
+                // Expanded(
+                //   child:
+                Container(
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -81,7 +84,14 @@ class JournalCard extends StatelessWidget {
                     maxLines: 3,
                   ),
                 ),
-              ),
+                // ),
+                IconButton(
+                  onPressed: () {
+                    deleteJournal(context);
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ]),
             ],
           ),
         ),
@@ -102,6 +112,26 @@ class JournalCard extends StatelessWidget {
         ),
       );
     }
+  }
+
+  deleteJournal(BuildContext context) async {
+    JournalService journalService = JournalService();
+    journalService.delete(journal!).then((value) {
+      if (value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Registro removido com sucesso."),
+          ),
+        );
+        refreshFunction();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Erro removendo Registro."),
+          ),
+        );
+      }
+    });
   }
 
   callAddJournalScreen(BuildContext context) {
@@ -132,7 +162,7 @@ class JournalCard extends StatelessWidget {
       }
     });
   }
-  
+
   callEditJournalScreen(BuildContext context, Journal? journal) {
     Navigator.pushNamed(
       context,
