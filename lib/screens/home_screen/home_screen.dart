@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/screens/home_screen/widgets/home_screen_list.dart';
 import 'package:flutter_webapi_first_course/services/journal_service.dart';
+import '../../services/user_service.dart';
 
 import '../../models/journal.dart';
+import '../../helpers/globals.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
+  HomeScreen({Key? key}) : super(key: key);
+  final UserService userService = UserService();
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -20,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // A base de dados mostrada na lista
   Map<String, Journal> database = {};
-
+  
   final ScrollController _listScrollController = ScrollController();
   final JournalService _journalService = JournalService();
 
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         // Título basado no dia atual
-        title: Text("${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}",),
+        title: Text("${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}  (${user?.email})",),
         actions: [
           IconButton( onPressed: () {
               refresh();
@@ -57,8 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void refresh() async {
-    List<Journal> listJournal = await _journalService.getAll();
-
+    List<Journal> listJournal = await _journalService.getAll(); 
     setState(() {
       database = {};
       for (Journal journal in listJournal) {

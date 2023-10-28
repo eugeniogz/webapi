@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/http.dart';
 
 import '../models/journal.dart';
+import '../helpers/globals.dart';
 
 class JournalService {
   // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
-  static const String url = "http://192.168.0.54:3001/";
+  static const String url = "http://192.168.0.36:3001/";
   static const String resource = "journals/";
 
   http.Client client = InterceptedClient.build(
@@ -28,7 +29,8 @@ class JournalService {
 
     http.Response response = await client.post(
       getUri(),
-      headers: {'Content-type': 'application/json'},
+      headers: {'Content-type': 'application/json',
+      'Authorization': "Bearer $accessToken"},
       body: journalJSON,
     );
 
@@ -44,7 +46,8 @@ class JournalService {
     String id = journal.id;
     http.Response response = await client.patch(
       Uri.parse("$url$resource$id"),
-      headers: {'Content-type': 'application/json'},
+      headers: {'Content-type': 'application/json',
+      'Authorization': "Bearer $accessToken"},
       body: journalJSON,
     );
 
@@ -60,7 +63,8 @@ class JournalService {
     String id = journal.id;
     http.Response response = await client.delete(
       Uri.parse("$url$resource$id"),
-      headers: {'Content-type': 'application/json'},
+      headers: {'Content-type': 'application/json',
+      'Authorization': "Bearer $accessToken"},
       //body: journalJSON,
     );
 
@@ -72,7 +76,9 @@ class JournalService {
   }
 
   Future<List<Journal>> getAll() async {
-    http.Response response = await client.get(getUri());
+    http.Response response = await client.get(getUri(),
+    headers: {'Content-type': 'application/json',
+      'Authorization': "Bearer $accessToken"});
 
     if (response.statusCode != 200) {
       //TODO: Criar uma exceção personalizada
@@ -89,4 +95,5 @@ class JournalService {
 
     return result;
   }
+
 }

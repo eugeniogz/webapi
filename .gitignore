@@ -5,6 +5,9 @@ web
 macos
 linux
 windows
+.vscode
+server/node_modules
+server/node_modules/.*
 
 *.class
 *.log

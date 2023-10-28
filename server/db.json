@@ -1,5 +1,11 @@
 {
-  "learnhttp": {},
+  "users": [
+    {
+      "email": "j@ufmg.br",
+      "password": "$2a$10$XBZFhVZTdGqwi.ZDjs/TTeysU/4xyU33T9UooWN1Kf6d5n6NmmlQK",
+      "id": 1
+    }
+  ],
   "journals": [
     {
       "id": "8fece080-7422-11ee-9283-979188318415",
@@ -9,7 +15,7 @@
     },
     {
       "id": "9d7fe9e0-7422-11ee-9283-979188318415",
-      "content": "Domingo 22, Almoço no bar do Nicolau",
+      "content": "Domingo 22, Almoço no bar do Nicolau com a família",
       "created_at": "2023-10-22 14:05:14.602314",
       "updated_at": "2023-10-22 14:05:14.602314"
     }
