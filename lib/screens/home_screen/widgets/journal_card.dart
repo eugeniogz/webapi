@@ -74,15 +74,17 @@ class JournalCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    journal!.content,
+                  child: SizedBox(
+                    width: 220.0,
+                    child:
+                    Text(journal!.content,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                  ),
+                  )),
                 ),
                 // ),
                 IconButton(

@@ -8,7 +8,6 @@ import '../helpers/globals.dart';
 
 class UserService {
   // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
-  static const String url = "http://192.168.0.36:3001/";
   static const String resource = "users/";
   
   http.Client client = http.Client();
@@ -37,7 +36,7 @@ class UserService {
     return false;
   }
 
-  login(User user1) async {
+  Future<void> login(User user1) async {
     String userJson = json.encode(user1.toMap());
     http.Response response = await http.Client().post(
       Uri.parse("${url}login"),
@@ -50,7 +49,7 @@ class UserService {
       accessToken = LoginResponse.fromMap(resp).accessToken;
       user = user1;
     } else {
-      throw Exception("Login inválido");
+      throw "Login inválido!";
     }
   }
 
