@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
             IconButton(
               onPressed: () {
                 login()
-                    .then((value) => Navigator.pushNamed(context, 'home'))
+                    .then((value) => Navigator.pushReplacementNamed(context, 'home'))
                     .catchError((e) => {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
