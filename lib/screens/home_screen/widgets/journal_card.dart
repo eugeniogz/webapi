@@ -75,7 +75,7 @@ class JournalCard extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.centerLeft,
                   child: SizedBox(
-                    width: 220.0,
+                    width: 210.0,
                     child:
                     Text(journal!.content,
                     style: const TextStyle(
