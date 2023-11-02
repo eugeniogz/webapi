@@ -9,7 +9,7 @@ import '../helpers/globals.dart';
 
 class JournalService {
   // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
-  static const String resource = "journals/";
+  static const String resource = "journals";
 
   http.Client client = InterceptedClient.build(
     interceptors: [LoggingInterceptor()],
@@ -44,7 +44,7 @@ class JournalService {
     String journalJSON = json.encode(journal.toMap());
     String id = journal.id;
     http.Response response = await client.patch(
-      Uri.parse("$url$resource$id"),
+      Uri.parse("$url/$resource$id"),
       headers: {'Content-type': 'application/json',
       'Authorization': "Bearer $accessToken"},
       body: journalJSON,
@@ -61,7 +61,7 @@ class JournalService {
     //String journalJSON = json.encode(journal.toMap());
     String id = journal.id;
     http.Response response = await client.delete(
-      Uri.parse("$url$resource$id"),
+      Uri.parse("$url/$resource$id"),
       headers: {'Content-type': 'application/json',
       'Authorization': "Bearer $accessToken"},
       //body: journalJSON,

@@ -8,7 +8,7 @@ class Journal {
 
   Journal({
     required this.id,
-    required this.content,
+    required this.content,  
     required this.createdAt,
     required this.updatedAt,
   });
@@ -22,20 +22,20 @@ class Journal {
   Journal.fromMap(Map<String, dynamic> map)
       : id = map['id'],
         content = map['content'],
-        createdAt = DateTime.parse(map['created_at']),
-        updatedAt = DateTime.parse(map['updated_at']);
+        createdAt = DateTime.parse(map['createdAt'].replaceAll("T", " ")),
+        updatedAt = DateTime.parse(map['updatedAt'].replaceAll("T", " "));
 
   @override
   String toString() {
-    return "$content \ncreated_at: $createdAt\nupdated_at:$updatedAt";
+    return "$content \ncreatedAt: $createdAt\nupdatedAt:$updatedAt";
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'content': content,
-      'created_at': createdAt.toString(),
-      'updated_at': updatedAt.toString()
+      'createdAt': createdAt.toString().replaceAll(" ", "T"),
+      'updatedAt': updatedAt.toString().replaceAll(" ", "T")
     };
   }
 }

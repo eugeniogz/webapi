@@ -187,7 +187,7 @@ class JournalCard extends StatelessWidget {
       } else if (value == DisposeStatus.error) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Houve uma falha ao registar."),
+            content: Text("Houve uma falha ao atualizar."),
           ),
         );
       }
