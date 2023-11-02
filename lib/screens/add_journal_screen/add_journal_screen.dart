@@ -7,8 +7,7 @@ class AddJournalScreen extends StatefulWidget {
   final Journal journal;
   final bool edit;
   const AddJournalScreen(
-      {Key? key, required this.journal, required this.edit})
-      : super(key: key);
+      {super.key, required this.journal, required this.edit});
 
   @override
   State<AddJournalScreen> createState() => _AddJournalScreenState();

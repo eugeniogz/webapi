@@ -10,11 +10,11 @@ class JournalCard extends StatelessWidget {
   final DateTime showedDate;
   final Function refreshFunction;
   const JournalCard({
-    Key? key,
+    super.key,
     this.journal,
     required this.showedDate,
     required this.refreshFunction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class JournalCard extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.centerLeft,
                   child: SizedBox(
-                    width: 210.0,
+                    width: 185.0,
                     child:
                     Text(journal!.content,
                     style: const TextStyle(

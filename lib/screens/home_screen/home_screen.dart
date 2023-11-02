@@ -7,7 +7,7 @@ import '../../models/journal.dart';
 import '../../helpers/globals.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({super.key});
   final UserService userService = UserService();
   @override
   State<HomeScreen> createState() => _HomeScreenState();
