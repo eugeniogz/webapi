@@ -22,8 +22,8 @@ class Journal {
   Journal.fromMap(Map<String, dynamic> map)
       : id = map['id'],
         content = map['content'],
-        createdAt = DateTime.parse(map['createdAt'].replaceAll("T", " ")),
-        updatedAt = DateTime.parse(map['updatedAt'].replaceAll("T", " "));
+        createdAt = DateTime.parse(map['createdAt']),
+        updatedAt = DateTime.parse(map['updatedAt']);
 
   @override
   String toString() {
@@ -34,8 +34,8 @@ class Journal {
     return {
       'id': id,
       'content': content,
-      'createdAt': createdAt.toString().replaceAll(" ", "T"),
-      'updatedAt': updatedAt.toString().replaceAll(" ", "T")
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String()
     };
   }
 }

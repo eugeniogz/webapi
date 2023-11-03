@@ -6,5 +6,6 @@ String? accessToken;
 
 User? user;
 
-const String url = "http://localhost:8080/";// "http://192.168.0.36:3001/";
+//const String url = "http://localhost:8080/";
+const String url =  "http://192.168.0.36:3001/";
   

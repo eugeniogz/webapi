@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // O último dia apresentado na lista
-  DateTime currentDay = DateTime.now().toUtc();
+  DateTime currentDay = DateTime.now();
 
   // Tamanho da lista
   int windowPage = 10;
@@ -46,11 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: refresh(),
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
+      body: ListView(
               controller: _listScrollController,
               children: generateListJournalCards(
                 windowPage: windowPage,
@@ -58,33 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 database: database,
                 refreshFunction: refresh,
               ),
-            );
-          } else if (snapshot.hasError) {
-            return 
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text('Erro: ${snapshot.error}'),
-              );
-          } else {
-            return const Row(
-              children: [
-             SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Buscando dados...'),
-              )
-            ]);
-          }
-        }
-      ),
+            )
     );
   }
 
-  Future<bool> refresh() async {
+  refresh() async {
     List<Journal> listJournal = await _journalService.getAll(); 
     setState(() {
       database = {};

@@ -36,7 +36,7 @@ class LoggingInterceptor implements InterceptorContract {
   
   @override
   Future<BaseRequest> interceptRequest({required BaseRequest request}) async {
-     log("Requisição para: ${request.url}\n${request.headers}");
+     log("Requisição para: ${request.url}\n${request.headers}\n${request.method}");
      return request;
   }
   

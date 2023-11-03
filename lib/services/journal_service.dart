@@ -44,9 +44,10 @@ class JournalService {
     String journalJSON = json.encode(journal.toMap());
     String id = journal.id;
     http.Response response = await client.patch(
-      Uri.parse("$url/$resource$id"),
+      Uri.parse("$url$resource/$id"),
       headers: {'Content-type': 'application/json',
-      'Authorization': "Bearer $accessToken"},
+      'Authorization': "Bearer $accessToken", 
+      'accept': '*/*'},
       body: journalJSON,
     );
 
@@ -61,7 +62,7 @@ class JournalService {
     //String journalJSON = json.encode(journal.toMap());
     String id = journal.id;
     http.Response response = await client.delete(
-      Uri.parse("$url/$resource$id"),
+      Uri.parse("$url$resource/$id"),
       headers: {'Content-type': 'application/json',
       'Authorization': "Bearer $accessToken"},
       //body: journalJSON,

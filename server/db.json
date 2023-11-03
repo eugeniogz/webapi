@@ -10,14 +10,26 @@
     {
       "id": "9d7fe9e0-7422-11ee-9283-979188318415",
       "content": "Domingo 22, Almoço no bar do Nicolau com a família",
-      "createdAt": "2023-10-22T14:05:14.602314",
-      "updatedAt": "2023-10-22T14:05:14.602314"
+      "createdAt": "2023-10-29 14:05:14.602",
+      "updatedAt": "2023-10-29 14:05:14.602"
     },
     {
       "id": "818faa90-bd14-1d76-81f6-75258b7ed556",
       "content": "conseguindo comemorar que ficamos presos no elevador por 40min",
-      "createdAt": "2023-11-01T01:17:38.354997Z",
-      "updatedAt": "2023-11-01T01:17:38.354997Z"
+      "createdAt": "2023-11-01 01:17:38.354",
+      "updatedAt": "2023-11-01 01:17:38.354"
+    },
+    {
+      "id": "4f131d60-5f1b-1d7b-bb7d-990f091389d4",
+      "content": "Feriado vamos partir para a natação",
+      "createdAt": "2023-11-02T10:31:00.036644",
+      "updatedAt": "2023-11-02T10:31:00.036644"
+    },
+    {
+      "id": "80fbf1b0-6940-1d7b-9b3c-cd330326e0fd",
+      "content": "exceção",
+      "createdAt": "2023-10-28T10:49:51.506278",
+      "updatedAt": "2023-10-28T10:49:51.506278"
     }
   ]
 }
