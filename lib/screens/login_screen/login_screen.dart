@@ -49,8 +49,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(width: 50.0, child: Text("e-mail:")),
               SizedBox(
                   width: 240.0,
-                  child: TextFormField(
+                  child: TextField(
                     controller: emailController,
+                    keyboardType: TextInputType.text,
                   )),
             ],
           ),
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(width: 50.0, child: Text("senha:")),
             SizedBox(
                 width: 240.0,
-                child: TextFormField(
+                child: TextField(
                     controller: passwordController, obscureText: true))
           ]),
         ]));
