@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_first_course/screens/add_journal_screen/add_journal_screen.dart';
 import 'package:flutter_webapi_first_course/screens/home_screen/widgets/home_screen_list.dart';
 import 'package:flutter_webapi_first_course/services/journal_service.dart';
-import '../../services/user_service.dart';
+import 'package:uuid/uuid.dart';
 
-import '../../models/journal.dart';
 import '../../helpers/globals.dart';
+import '../../models/journal.dart';
+import '../../services/user_service.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -50,11 +52,18 @@ class _HomeScreenState extends State<HomeScreen> {
               controller: _listScrollController,
               children: generateListJournalCards(
                 windowPage: windowPage,
-                currentDay: currentDay,
                 database: database,
                 refreshFunction: refresh,
               ),
-            )
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  callAddJournalScreen(context);
+                });
+              },
+              child: const Icon(Icons.add),
+            ),
     );
   }
 
@@ -65,12 +74,30 @@ class _HomeScreenState extends State<HomeScreen> {
       for (Journal journal in listJournal) {
         database[journal.id] = journal;
       }
-
-      if (_listScrollController.hasClients) {
-        final double position = _listScrollController.position.maxScrollExtent;
-        _listScrollController.jumpTo(position);
-      }
     });
     return true;
   }
+
+  callAddJournalScreen(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      'add-journal',
+      arguments: Journal(
+        id: const Uuid().v1(),
+        content: "",
+        createdAt: currentDay,
+        updatedAt: currentDay,
+      ),
+    ).then((value) {
+      if (value == DisposeStatus.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Houve uma falha ao registar."),
+          ),
+        );
+      }
+      refresh();
+    });
+  }
+
 }

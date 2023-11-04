@@ -28,7 +28,13 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
               widget.edit?editJournal(context):registerJournal(context);
             },
             icon: const Icon(Icons.check),
-          )
+          ),
+          IconButton(
+            onPressed: () {
+              deleteJournal(context);
+            },
+            icon: const Icon(Icons.delete),
+          ),
         ],
       ),
       body: Padding(
@@ -43,6 +49,17 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         ),
       ),
     );
+  }
+
+  deleteJournal(BuildContext context) async {
+    JournalService journalService = JournalService();
+    journalService.delete(widget.journal).then((value) {
+      if (value) {
+        Navigator.pop(context, DisposeStatus.success);
+      } else {
+        Navigator.pop(context, DisposeStatus.error);
+      }
+    });
   }
 
   registerJournal(BuildContext context) async {
@@ -60,6 +77,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   editJournal(BuildContext context) async {
     JournalService journalService = JournalService();
     widget.journal.content = contentController.text;
+    widget.journal.updatedAt = DateTime.now();
     journalService.edit(widget.journal).then((value) {
       if (value) {
         Navigator.pop(context, DisposeStatus.success);

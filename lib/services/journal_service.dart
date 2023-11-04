@@ -81,8 +81,7 @@ class JournalService {
       'Authorization': "Bearer $accessToken"});
 
     if (response.statusCode != 200) {
-      //TODO: Criar uma exceção personalizada
-      throw Exception();
+      throw Exception("Erro ${response.statusCode}");
     }
 
     List<Journal> result = [];
