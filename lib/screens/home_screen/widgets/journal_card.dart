@@ -19,8 +19,7 @@ class JournalCard extends StatelessWidget {
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(journal.content,
-              softWrap: true, overflow: TextOverflow.fade),
+          child: Text(journal.content, softWrap: true, overflow: TextOverflow.fade),
         ),
       ),
       onTap: () {

@@ -17,16 +17,9 @@ class MyApp extends StatelessWidget {
       title: 'Simple Journal',
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
-        primarySwatch: Colors.grey,
-        appBarTheme: const AppBarTheme(
-          elevation: 0,
-          backgroundColor: Colors.black,
-          titleTextStyle: TextStyle(color: Colors.white),
-          actionsIconTheme: IconThemeData(color: Colors.white),
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
+        colorSchemeSeed: Colors.amber,
         textTheme: GoogleFonts.bitterTextTheme(),
       ),
       initialRoute: "login",

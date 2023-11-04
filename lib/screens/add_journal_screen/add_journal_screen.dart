@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/helpers/weekday.dart';
 import 'package:flutter_webapi_first_course/models/journal.dart';
@@ -19,36 +21,36 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
   @override
   Widget build(BuildContext context) {
     contentController.text = widget.journal.content;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(WeekDay(widget.journal.createdAt).toString()),
-        actions: [
-          IconButton(
-            onPressed: () {
-              widget.edit?editJournal(context):registerJournal(context);
-            },
-            icon: const Icon(Icons.check),
+    return WillPopScope(
+        onWillPop: () async {
+          return widget.edit
+              ? await editJournal(context)
+              : await registerJournal(context);
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(WeekDay(widget.journal.createdAt).toString()),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  deleteJournal(context);
+                },
+                icon: const Icon(Icons.delete),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () {
-              deleteJournal(context);
-            },
-            icon: const Icon(Icons.delete),
+          body: Padding(
+            padding: const EdgeInsets.all(8),
+            child: TextField(
+              controller: contentController,
+              keyboardType: TextInputType.multiline,
+              style: const TextStyle(fontSize: 24),
+              expands: true,
+              maxLines: null,
+              minLines: null,
+            ),
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: TextField(
-          controller: contentController,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(fontSize: 24),
-          expands: true,
-          maxLines: null,
-          minLines: null,
-        ),
-      ),
-    );
+        ));
   }
 
   deleteJournal(BuildContext context) async {
@@ -67,27 +69,27 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     widget.journal.content = contentController.text;
     journalService.register(widget.journal).then((value) {
       if (value) {
-        Navigator.pop(context, DisposeStatus.success);
+        log("register");
       } else {
-        Navigator.pop(context, DisposeStatus.error);
+        log("register ERRO");
       }
     });
+    return true;
   }
 
-  editJournal(BuildContext context) async {
+  Future<bool> editJournal(BuildContext context) async {
     JournalService journalService = JournalService();
     widget.journal.content = contentController.text;
     widget.journal.updatedAt = DateTime.now();
     journalService.edit(widget.journal).then((value) {
       if (value) {
-        Navigator.pop(context, DisposeStatus.success);
+        log("edit");
       } else {
-        Navigator.pop(context, DisposeStatus.error);
+        log("edit ERRO");
       }
     });
+    return true;
   }
-  
-  
 }
 
 enum DisposeStatus { exit, error, success }
