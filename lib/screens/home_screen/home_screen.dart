@@ -48,7 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: ListView(
+      body: GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.0,
+                ),
               controller: _listScrollController,
               children: generateListJournalCards(
                 windowPage: windowPage,
