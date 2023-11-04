@@ -24,8 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // A base de dados mostrada na lista
   Map<String, Journal> database = {};
-  
-  final ScrollController _listScrollController = ScrollController();
+
+  // final ScrollController _listScrollController = ScrollController();
   final JournalService _journalService = JournalService();
 
   @override
@@ -39,40 +39,56 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         // Título basado no dia atual
-        title: Text("${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}  (${user?.email})",),
+        title: Text(
+          "${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}  (${user?.email})",
+        ),
         actions: [
-          IconButton( onPressed: () {
+          IconButton(
+            onPressed: () {
               refresh();
             },
-            icon: const Icon(Icons.refresh,),
+            icon: const Icon(
+              Icons.refresh,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              logout();
+            },
+            icon: const Icon(
+              Icons.logout,
+            ),
           ),
         ],
       ),
       body: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.0,
-                ),
-              controller: _listScrollController,
-              children: generateListJournalCards(
-                windowPage: windowPage,
-                database: database,
-                refreshFunction: refresh,
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  callAddJournalScreen(context);
-                });
-              },
-              child: const Icon(Icons.add),
-            ),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1.0,
+        ),
+
+        // body: Flow (
+        //       delegate: MyFlowDelegate(),
+
+        children: generateListJournalCards(
+          windowPage: windowPage,
+          database: database,
+          refreshFunction: refresh,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            callAddJournalScreen(context);
+          });
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
   refresh() async {
-    List<Journal> listJournal = await _journalService.getAll(); 
+    List<Journal> listJournal = await _journalService.getAll();
     setState(() {
       database = {};
       for (Journal journal in listJournal) {
@@ -80,6 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
     return true;
+  }
+
+  logout() {
+    user = null;
+    accessToken = null;
+    Navigator.pushReplacementNamed(context, 'login');
   }
 
   callAddJournalScreen(BuildContext context) {
@@ -103,5 +125,27 @@ class _HomeScreenState extends State<HomeScreen> {
       refresh();
     });
   }
+}
 
+class MyFlowDelegate extends FlowDelegate {
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    // Layout the children here.
+    final size = context.size;
+
+    // Layout the first child in the top left corner.
+    final firstChildSize = context.getChildSize(0);
+    context.paintChild(0, transform: Matrix4.translationValues(0, 0, 0));
+
+    // Layout the second child in the top right corner.
+    final secondChildSize = context.getChildSize(1);
+    context.paintChild(1,
+        transform: Matrix4.translationValues(0, size.width / 2, 0));
+  }
+
+  @override
+  bool shouldRepaint(FlowDelegate oldDelegate) {
+    // Return true if the delegate needs to be repainted.
+    return true;
+  }
 }

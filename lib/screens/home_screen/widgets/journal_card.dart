@@ -17,6 +17,7 @@ class JournalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Card(
+        color: Colors.amber[100],
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(journal.content, softWrap: true, overflow: TextOverflow.fade),

@@ -23,24 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
           title: const Text(
             "Login",
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                login()
-                    .then((value) => Navigator.pushReplacementNamed(context, 'home'))
-                    .catchError((e) => {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(e.toString()),
-                    ),
-                  )
-                });
-              },
-              icon: const Icon(
-                Icons.login,
-              ),
-            ),
-          ],
         ),
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(
@@ -61,7 +43,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextField(
                     controller: passwordController, obscureText: true))
           ]),
-        ]));
+          TextButton(
+              style: TextButton.styleFrom(
+                elevation: 10,
+                backgroundColor: Colors.amber,
+              ),
+              onPressed: () {
+                login()
+                    .then((value) =>
+                        Navigator.pushReplacementNamed(context, 'home'))
+                    .catchError((e) => {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          )
+                        });
+              }, child: const Text("Login"))]));
   }
 
   Future<void> login() async {
