@@ -1,16 +1,18 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/user.dart';
-import '../models/login_response.dart';
 import '../helpers/globals.dart';
+import '../models/login_response.dart';
+import '../models/user.dart';
 
 class UserService {
   // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
   static const String resource = "users/";
   
   http.Client client = http.Client();
+  final secureStorage = const FlutterSecureStorage();
 
   String getURL() {
     return "$url$resource";
@@ -48,9 +50,16 @@ class UserService {
       dynamic resp = json.decode(response.body);
       accessToken = LoginResponse.fromMap(resp).accessToken;
       user = user1;
+      await secureStorage.write(key: 'accessToken', value: accessToken);
+      await secureStorage.write(key: 'user', value: json.encode(user!.toMap()));
     } else {
       throw "Login inválido!";
     }
   }
 
+  readCachedToken() async {
+    accessToken = await secureStorage.read(key: 'accessToken');
+    String? userJson = await secureStorage.read(key: 'user');
+    user = userJson==null?null:User.fromMap(json.decode(userJson));
+  }
 }
