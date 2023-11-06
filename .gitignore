@@ -1,6 +1,17 @@
 # Miscellaneous
 ios
-android
+!android/
+android/*
+!android/app/
+android/app/*
+!android/app/src
+android/app/src/*
+!android/app/src/main
+android/app/src/main/*
+!android/app/src/main/AndroidManifest.xml
+
+
+
 web
 macos
 linux
