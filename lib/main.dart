@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         future: chekcAccessToken(),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data != null) {
+            if (snapshot.data != "F") {
               return mainAppScreen(true);
             } else {
               return mainAppScreen(false);
@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
         });
   }
 
-  Future<String>? chekcAccessToken() async {
+  Future<String> chekcAccessToken() async {
     UserService userService = UserService();
     await userService.readCachedToken();
-    return accessToken!;
+    return accessToken==null?"F":accessToken!;
   }
 
   Widget mainAppScreen(bool home) {
