@@ -45,7 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              refresh();
+              setState(() {
+                refresh();
+              });
             },
             icon: const Icon(
               Icons.refresh,
@@ -61,15 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: GridView(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.0,
-        ),
+      // body: GridView(
+      // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //   crossAxisCount: 2,
+      //   childAspectRatio: 1.0,
+      // ),
 
-        // body: Flow (
-        //       delegate: MyFlowDelegate(),
-
+      body: Flow(
+        delegate: MyFlowDelegate(),
         children: generateListJournalCards(
           windowPage: windowPage,
           database: database,
@@ -88,7 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   refresh() async {
-    List<Journal> listJournal = await _journalService.getAll();
+    List<Journal> listJournal = [];
+    await _journalService
+        .getAll(listJournal) //;
+        .catchError((onError) {
+      Navigator.pushReplacementNamed(context, 'login');
+      return null;
+    });
+
     setState(() {
       database = {};
       for (Journal journal in listJournal) {
@@ -131,16 +139,12 @@ class MyFlowDelegate extends FlowDelegate {
   @override
   void paintChildren(FlowPaintingContext context) {
     // Layout the children here.
-    final size = context.size;
-
-    // Layout the first child in the top left corner.
-    final firstChildSize = context.getChildSize(0);
-    context.paintChild(0, transform: Matrix4.translationValues(0, 0, 0));
-
-    // Layout the second child in the top right corner.
-    final secondChildSize = context.getChildSize(1);
-    context.paintChild(1,
-        transform: Matrix4.translationValues(0, size.width / 2, 0));
+    // final size = context.size;
+    double y = 0;
+    for (int i = 0; i < context.childCount; i++) {
+      context.paintChild(i, transform: Matrix4.translationValues(0, y, 0));
+      y += context.getChildSize(i)!.height;
+    }
   }
 
   @override

@@ -75,7 +75,7 @@ class JournalService {
     return false;
   }
 
-  Future<List<Journal>> getAll() async {
+  getAll(List<Journal> listJournal) async {
     http.Response response = await client.get(getUri(),
     headers: {'Content-type': 'application/json',
       'Authorization': "Bearer $accessToken"});
@@ -84,15 +84,12 @@ class JournalService {
       throw Exception("Erro ${response.statusCode}");
     }
 
-    List<Journal> result = [];
-
     List<dynamic> jsonList = json.decode(response.body);
-    // for (var jsonMap in jsonList) {
-    //   result.add(Journal.fromMap(jsonMap));
-    // }
-    result = jsonList.map((e) => Journal.fromMap(e)).toList();
-
-    return result;
+  
+    for (var jsonMap in jsonList) {
+      listJournal.add(Journal.fromMap(jsonMap));
+    }
+    
   }
 
 }
