@@ -90,6 +90,7 @@ class JournalService {
       listJournal.add(Journal.fromMap(jsonMap));
     }
     
+    listJournal.sort((a, b)=>a.createdAt.compareTo(b.createdAt));
   }
 
 }

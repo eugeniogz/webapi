@@ -5,17 +5,17 @@ import 'package:flutter_webapi_first_course/helpers/weekday.dart';
 import 'package:flutter_webapi_first_course/models/journal.dart';
 import 'package:flutter_webapi_first_course/services/journal_service.dart';
 
-class AddJournalScreen extends StatefulWidget {
+class EditJournalScreen extends StatefulWidget {
   final Journal journal;
   final bool edit;
-  const AddJournalScreen(
+  const EditJournalScreen(
       {super.key, required this.journal, required this.edit});
 
   @override
-  State<AddJournalScreen> createState() => _AddJournalScreenState();
+  State<EditJournalScreen> createState() => _EditJournalScreenState();
 }
 
-class _AddJournalScreenState extends State<AddJournalScreen> {
+class _EditJournalScreenState extends State<EditJournalScreen> {
   TextEditingController contentController = TextEditingController();
 
   @override

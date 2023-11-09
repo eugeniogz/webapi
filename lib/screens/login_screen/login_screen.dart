@@ -46,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
           TextButton(
               style: TextButton.styleFrom(
                 elevation: 10,
-                backgroundColor: Colors.amber,
               ),
               onPressed: () {
                 login()

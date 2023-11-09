@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webapi_first_course/screens/add_journal_screen/add_journal_screen.dart';
+import 'package:flutter_webapi_first_course/screens/edit_journal_screen/edit_journal_screen.dart';
 import 'package:flutter_webapi_first_course/screens/home_screen/widgets/home_screen_list.dart';
 import 'package:flutter_webapi_first_course/services/journal_service.dart';
 import 'package:uuid/uuid.dart';
@@ -18,9 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // O último dia apresentado na lista
   DateTime currentDay = DateTime.now();
-
-  // Tamanho da lista
-  int windowPage = 10;
 
   // A base de dados mostrada na lista
   Map<String, Journal> database = {};
@@ -45,9 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              setState(() {
-                refresh();
-              });
+              refresh();
             },
             icon: const Icon(
               Icons.refresh,
@@ -69,21 +64,37 @@ class _HomeScreenState extends State<HomeScreen> {
       //   childAspectRatio: 1.0,
       // ),
 
-      body: Flow(
-        delegate: MyFlowDelegate(),
-        children: generateListJournalCards(
-          windowPage: windowPage,
-          database: database,
-          refreshFunction: refresh,
-        ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Row (children : [SizedBox(width: (constraints.maxWidth-5)/2,
+          child: Flow(
+              delegate: MyFlowDelegate(),
+              children: generateListJournalCards(
+                column: 1,
+                database: database,
+                refreshFunction: refresh,
+              ),
+          ),
+        ),SizedBox(width: (constraints.maxWidth-5)/2,
+          child: Flow(
+              delegate: MyFlowDelegate(),
+              children: generateListJournalCards(
+                column: 2,
+                database: database,
+                refreshFunction: refresh,
+              ),
+          ),
+        )]);
+          },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).highlightColor,
         onPressed: () {
-          setState(() {
-            callAddJournalScreen(context);
-          });
+          callAddJournalScreen(context);
         },
-        child: const Icon(Icons.add),
+        child: Icon(
+          color: Theme.of(context).primaryColor,
+          Icons.add),
       ),
     );
   }

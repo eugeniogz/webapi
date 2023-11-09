@@ -3,7 +3,7 @@ import 'package:flutter_webapi_first_course/helpers/globals.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'models/journal.dart';
-import 'screens/add_journal_screen/add_journal_screen.dart';
+import 'screens/edit_journal_screen/edit_journal_screen.dart';
 import 'screens/home_screen/home_screen.dart';
 import 'screens/login_screen/login_screen.dart';
 import 'services/user_service.dart';
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           final journal = routeSettings.arguments as Journal;
           return MaterialPageRoute(
             builder: (context) {
-              return AddJournalScreen(
+              return EditJournalScreen(
                   journal: journal, edit: routeSettings.name == "edit-journal");
             },
           );

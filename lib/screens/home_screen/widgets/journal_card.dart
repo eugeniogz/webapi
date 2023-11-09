@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/models/journal.dart';
-import 'package:flutter_webapi_first_course/screens/add_journal_screen/add_journal_screen.dart';
+import 'package:flutter_webapi_first_course/screens/edit_journal_screen/edit_journal_screen.dart';
 
-class JournalCard extends StatelessWidget {
+class JournalCard extends StatefulWidget {
   final Journal journal;
   final DateTime showedDate;
   final Function refreshFunction;
@@ -14,17 +14,22 @@ class JournalCard extends StatelessWidget {
   });
 
   @override
+  State<JournalCard> createState() => _JournalCardState();
+}
+
+class _JournalCardState extends State<JournalCard> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Card(
         color: Colors.amber[100],
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(journal.content, softWrap: true, overflow: TextOverflow.fade, style: const TextStyle(color: Colors.black)),
+          child: Text(widget.journal.content, softWrap: true, overflow: TextOverflow.fade, style: const TextStyle(color: Colors.black)),
         ),
       ),
       onTap: () {
-        callEditJournalScreen(context, journal);
+        callEditJournalScreen(context, widget.journal);
       },
     );
   }
@@ -47,7 +52,7 @@ class JournalCard extends StatelessWidget {
           ),
         );
       }
-      refreshFunction();
+      widget.refreshFunction();
     });
   }
 }
