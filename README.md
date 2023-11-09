@@ -1,4 +1,4 @@
-# flutter_webapi_first_course
+# memo_webapi
 
 Projeto baseado no primeiro curso de WebAPI da Formação Flutter da alura,
 possui um caso completo de acesso a uma API rest com login

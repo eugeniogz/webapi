@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webapi_first_course/models/journal.dart';
-import 'package:flutter_webapi_first_course/screens/edit_journal_screen/edit_journal_screen.dart';
+import 'package:memo_webapi/models/journal.dart';
+import 'package:memo_webapi/screens/edit_journal_screen/edit_journal_screen.dart';
 
 class JournalCard extends StatefulWidget {
   final Journal journal;
@@ -21,13 +21,17 @@ class _JournalCardState extends State<JournalCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Card(
-        color: Colors.amber[100],
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(widget.journal.content, softWrap: true, overflow: TextOverflow.fade, style: const TextStyle(color: Colors.black)),
-        ),
-      ),
+      child: ConstrainedBox(constraints: const BoxConstraints(maxHeight: 250),
+          child: Card(
+            color: Colors.amber[100],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.journal.content,
+                  softWrap: true,
+                  overflow: TextOverflow.fade,
+                  style: const TextStyle(color: Colors.black)),
+            ),
+          )),
       onTap: () {
         callEditJournalScreen(context, widget.journal);
       },

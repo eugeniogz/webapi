@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_webapi_first_course/services/http_interceptors.dart';
+import 'package:memo_webapi/services/http_interceptors.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
 
@@ -75,7 +75,7 @@ class JournalService {
     return false;
   }
 
-  getAll(List<Journal> listJournal) async {
+  Future<List<Journal>> getAll() async {
     http.Response response = await client.get(getUri(),
     headers: {'Content-type': 'application/json',
       'Authorization': "Bearer $accessToken"});
@@ -85,12 +85,15 @@ class JournalService {
     }
 
     List<dynamic> jsonList = json.decode(response.body);
-  
+
+    List<Journal> listJournal = [];
     for (var jsonMap in jsonList) {
       listJournal.add(Journal.fromMap(jsonMap));
     }
     
-    listJournal.sort((a, b)=>a.createdAt.compareTo(b.createdAt));
+    listJournal.sort((a, b)=>b.createdAt.compareTo(a.createdAt));
+
+    return listJournal;
   }
 
 }

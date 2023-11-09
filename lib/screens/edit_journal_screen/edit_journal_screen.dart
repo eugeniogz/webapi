@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_webapi_first_course/helpers/weekday.dart';
-import 'package:flutter_webapi_first_course/models/journal.dart';
-import 'package:flutter_webapi_first_course/services/journal_service.dart';
+import 'package:memo_webapi/helpers/weekday.dart';
+import 'package:memo_webapi/models/journal.dart';
+import 'package:memo_webapi/services/journal_service.dart';
 
 class EditJournalScreen extends StatefulWidget {
   final Journal journal;
@@ -64,31 +62,33 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
     });
   }
 
-  registerJournal(BuildContext context) async {
+  Future<bool> registerJournal(BuildContext context) async {
     JournalService journalService = JournalService();
     widget.journal.content = contentController.text;
     journalService.register(widget.journal).then((value) {
       if (value) {
-        log("register");
+        Navigator.pop(context, DisposeStatus.success);
       } else {
-        log("register ERRO");
+        Navigator.pop(context, DisposeStatus.error);
       }
     });
-    return true;
+    return false;
   }
 
   Future<bool> editJournal(BuildContext context) async {
     JournalService journalService = JournalService();
-    widget.journal.content = contentController.text;
-    widget.journal.updatedAt = DateTime.now();
+    if (widget.journal.content != contentController.text) {
+      widget.journal.content = contentController.text;
+      widget.journal.updatedAt = DateTime.now();
+    }
     journalService.edit(widget.journal).then((value) {
       if (value) {
-        log("edit");
+        Navigator.pop(context, DisposeStatus.success);
       } else {
-        log("edit ERRO");
+        Navigator.pop(context, DisposeStatus.error);
       }
     });
-    return true;
+    return false;
   }
 }
 

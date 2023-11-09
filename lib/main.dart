@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webapi_first_course/helpers/globals.dart';
+import 'package:memo_webapi/helpers/globals.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'models/journal.dart';

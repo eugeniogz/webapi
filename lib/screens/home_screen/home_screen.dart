@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webapi_first_course/screens/edit_journal_screen/edit_journal_screen.dart';
-import 'package:flutter_webapi_first_course/screens/home_screen/widgets/home_screen_list.dart';
-import 'package:flutter_webapi_first_course/services/journal_service.dart';
+import 'package:memo_webapi/screens/edit_journal_screen/edit_journal_screen.dart';
+import 'package:memo_webapi/services/journal_service.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../helpers/globals.dart';
 import '../../models/journal.dart';
 import '../../services/user_service.dart';
+import 'widgets/journal_card.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -65,9 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
       // ),
 
       body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Row (children : [SizedBox(width: (constraints.maxWidth-5)/2,
-          child: Flow(
+        builder: (BuildContext context, BoxConstraints boxConstraints) {
+          return Row (children : [
+            SizedBox(width: (boxConstraints.maxWidth-5)/2,
+            child: Flow(
               delegate: MyFlowDelegate(),
               children: generateListJournalCards(
                 column: 1,
@@ -75,8 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 refreshFunction: refresh,
               ),
           ),
-        ),SizedBox(width: (constraints.maxWidth-5)/2,
-          child: Flow(
+        ), 
+          SizedBox(width: (boxConstraints.maxWidth-5)/2,
+            child: Flow(
               delegate: MyFlowDelegate(),
               children: generateListJournalCards(
                 column: 2,
@@ -99,22 +101,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  refresh() async {
-    List<Journal> listJournal = [];
-    await _journalService
-        .getAll(listJournal) //;
+  refresh() {
+    _journalService
+        .getAll()
+        .then((listJournal) {
+          setState(() {
+            database = {};
+            for (Journal journal in listJournal) {
+              database[journal.id] = journal;
+            }
+          });
+        })
         .catchError((onError) {
-      Navigator.pushReplacementNamed(context, 'login');
-      return null;
-    });
-
-    setState(() {
-      database = {};
-      for (Journal journal in listJournal) {
-        database[journal.id] = journal;
-      }
-    });
-    return true;
+          Navigator.pushReplacementNamed(context, 'login');
+        });
   }
 
   logout() {
@@ -130,8 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
       arguments: Journal(
         id: const Uuid().v1(),
         content: "",
-        createdAt: currentDay,
-        updatedAt: currentDay,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       ),
     ).then((value) {
       if (value == DisposeStatus.error) {
@@ -144,6 +144,27 @@ class _HomeScreenState extends State<HomeScreen> {
       refresh();
     });
   }
+
+  List<JournalCard> generateListJournalCards(
+    {required int column,
+    required Map<String, Journal> database,
+    required Function refreshFunction}) {
+    // Cria uma lista de Cards vazios
+    List<JournalCard> list = List.empty(growable: true);
+
+    //Preenche os espaços que possuem entradas no banco
+    for (var i=column==1?0:1; i<database.values.length; i+=2)
+    {
+        var value = database.values.elementAt(i);
+        list.add(JournalCard(
+          showedDate: value.createdAt,
+          journal: value,
+          refreshFunction: refreshFunction,
+        ));
+    }
+    return list;
+  }
+
 }
 
 class MyFlowDelegate extends FlowDelegate {
