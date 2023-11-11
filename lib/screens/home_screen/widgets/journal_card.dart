@@ -52,7 +52,7 @@ class _JournalCardState extends State<JournalCard> {
       if (value == DisposeStatus.error) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Erro inesperado."),
+            content: Text("Erro alterando dados."),
           ),
         );
       }
