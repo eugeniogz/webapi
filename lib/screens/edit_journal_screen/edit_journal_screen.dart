@@ -67,12 +67,12 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
     widget.journal.content = contentController.text;
     journalService.register(widget.journal).then((value) {
       if (value) {
-        Navigator.pop(context, DisposeStatus.success);
+        Navigator.pop(context, DisposeStatus.success); //Só faz o pop depois do servidor retornar
       } else {
         Navigator.pop(context, DisposeStatus.error);
       }
     });
-    return false;
+    return false; //Retorn a false para o Willpop não chamar pop mais uma vez
   }
 
   Future<bool> editJournal(BuildContext context) async {
@@ -83,12 +83,12 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
     }
     journalService.edit(widget.journal).then((value) {
       if (value) {
-        Navigator.pop(context, DisposeStatus.success);
+        Navigator.pop(context, DisposeStatus.success); //Só faz o pop depois do servidor retornar
       } else {
         Navigator.pop(context, DisposeStatus.error);
       }
     });
-    return false;
+    return false; //Retorn a false para o Willpop não chamar pop mais uma vez
   }
 }
 

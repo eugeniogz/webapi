@@ -43,10 +43,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextField(
                     controller: passwordController, obscureText: true))
           ]),
-          TextButton(
-              style: TextButton.styleFrom(
-                elevation: 10,
-              ),
+          ElevatedButton(
+              // style: TextButton.styleFrom(
+              //   elevation: 10,
+              // ),
               onPressed: () {
                 login()
                     .then((value) =>
