@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memo_webapi/helpers/globals.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 import 'models/journal.dart';
 import 'screens/edit_journal_screen/edit_journal_screen.dart';
@@ -45,8 +45,8 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        colorSchemeSeed: Colors.amber,
-        textTheme: GoogleFonts.bitterTextTheme(),
+        colorSchemeSeed: Colors.blue,
+        // textTheme: GoogleFonts.bitterTextTheme(),
       ),
       initialRoute: initialRoute,
       routes: {

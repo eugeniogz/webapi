@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             onPressed: () {
-              logout();
+              widget.userService.logout().then((value) =>  Navigator.pushReplacementNamed(context, 'login'));
             },
             icon: const Icon(
               Icons.logout,
@@ -90,13 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
           },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).highlightColor,
         onPressed: () {
           callAddJournalScreen(context);
         },
-        child: Icon(
-          color: Theme.of(context).primaryColor,
-          Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -115,12 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
         .catchError((onError) {
           Navigator.pushReplacementNamed(context, 'login');
         });
-  }
-
-  logout() {
-    user = null;
-    accessToken = null;
-    Navigator.pushReplacementNamed(context, 'login');
   }
 
   callAddJournalScreen(BuildContext context) {

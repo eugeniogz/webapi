@@ -23,7 +23,7 @@ class _JournalCardState extends State<JournalCard> {
     return GestureDetector(
       child: ConstrainedBox(constraints: const BoxConstraints(maxHeight: 250),
           child: Card(
-            color: Colors.amber[100],
+            color: Theme.of(context).primaryColorLight,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(widget.journal.content,

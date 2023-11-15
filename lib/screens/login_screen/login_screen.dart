@@ -28,25 +28,30 @@ class _LoginScreenState extends State<LoginScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(width: 50.0, child: Text("e-mail:")),
               SizedBox(
-                  width: 240.0,
+                  width: 290.0,
                   child: TextField(
+                    decoration: const InputDecoration(
+                      labelText: "e-mail",
+                      // label: Text("e-mails"),
+                      // hintText: "e-mail",
+                      border: OutlineInputBorder()),
                     controller: emailController,
                   )),
             ],
           ),
+          const SizedBox(height: 20,),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(width: 50.0, child: Text("senha:")),
             SizedBox(
-                width: 240.0,
+                width: 290.0,
                 child: TextField(
+                    decoration: const InputDecoration(
+                      labelText: "senha",
+                      border: OutlineInputBorder()),
                     controller: passwordController, obscureText: true))
           ]),
+          const SizedBox(height: 20,),
           ElevatedButton(
-              // style: TextButton.styleFrom(
-              //   elevation: 10,
-              // ),
               onPressed: () {
                 login()
                     .then((value) =>

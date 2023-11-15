@@ -57,6 +57,13 @@ class UserService {
     }
   }
 
+  Future<void> logout() async {
+    accessToken = null;
+    user = null;
+    await secureStorage.write(key: 'accessToken', value: null);
+    await secureStorage.write(key: 'user', value: null);
+  }
+
   readCachedToken() async {
     accessToken = await secureStorage.read(key: 'accessToken');
     String? userJson = await secureStorage.read(key: 'user');
