@@ -90,10 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
           },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           callAddJournalScreen(context);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          color: Colors.white,
+          Icons.add),
       ),
     );
   }
