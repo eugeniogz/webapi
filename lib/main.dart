@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Future<String> chekcAccessToken() async {
     JournalService journalService = JournalService();
     try {
-      await journalService.getAll();
+      await journalService.get("1234");
       return "V";
     } catch (err) {
       UserService userService = UserService();

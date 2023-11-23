@@ -28,8 +28,10 @@ class JournalService {
 
     http.Response response = await client.post(
       getUri(),
-      headers: {'Content-type': 'application/json',
-      'Authorization': "Bearer $accessToken"},
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer $accessToken"
+      },
       body: journalJSON,
     );
 
@@ -45,9 +47,11 @@ class JournalService {
     String id = journal.id;
     http.Response response = await client.patch(
       Uri.parse("$url$resource/$id"),
-      headers: {'Content-type': 'application/json',
-      'Authorization': "Bearer $accessToken", 
-      'accept': '*/*'},
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer $accessToken",
+        'accept': '*/*'
+      },
       body: journalJSON,
     );
 
@@ -63,8 +67,10 @@ class JournalService {
     String id = journal.id;
     http.Response response = await client.delete(
       Uri.parse("$url$resource/$id"),
-      headers: {'Content-type': 'application/json',
-      'Authorization': "Bearer $accessToken"},
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer $accessToken"
+      },
       //body: journalJSON,
     );
 
@@ -76,9 +82,10 @@ class JournalService {
   }
 
   Future<List<Journal>> getAll() async {
-    http.Response response = await client.get(getUri(),
-    headers: {'Content-type': 'application/json',
-      'Authorization': "Bearer $accessToken"});
+    http.Response response = await client.get(getUri(), headers: {
+      'Content-type': 'application/json',
+      'Authorization': "Bearer $accessToken"
+    });
 
     if (response.statusCode != 200) {
       throw Exception("Erro ${response.statusCode}");
@@ -90,10 +97,26 @@ class JournalService {
     for (var jsonMap in jsonList) {
       listJournal.add(Journal.fromMap(jsonMap));
     }
-    
-    listJournal.sort((a, b)=>b.createdAt.compareTo(a.createdAt));
+
+    listJournal.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return listJournal;
   }
 
+  Future<Journal?> get(String id) async {
+    http.Response response = await client.get(Uri.parse("${getURL()}/$id"),
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': "Bearer $accessToken"
+        });
+
+    if (response.statusCode != 200 && response.statusCode != 404) {
+      throw Exception("Erro ${response.statusCode}");
+    }
+    if (response.statusCode == 404) return null;
+    
+    dynamic jsonRet = json.decode(response.body);
+
+    return Journal.fromMap(jsonRet);
+  }
 }
