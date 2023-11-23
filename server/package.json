@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "json-server-auth db.json -r routes.json --port 3001 --host=0.0.0.0"
+    "start": "json-server db.json --port 3001 --host=0.0.0.0",
+    "start-auth": "json-server-auth db.json -r routes.json --port 3001 --host=0.0.0.0"
   },
   "keywords": [],
   "author": "",

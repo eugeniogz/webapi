@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memo_webapi/helpers/globals.dart';
+import 'package:memo_webapi/services/journal_service.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 import 'models/journal.dart';
@@ -21,9 +22,9 @@ class MyApp extends StatelessWidget {
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != "F") {
-              return mainAppScreen(true);
+              return mainAppScreen(true, snapshot.data != "V");
             } else {
-              return mainAppScreen(false);
+              return mainAppScreen(false, true);
             }
           } else {
             return const CircularProgressIndicator();
@@ -32,12 +33,18 @@ class MyApp extends StatelessWidget {
   }
 
   Future<String> chekcAccessToken() async {
-    UserService userService = UserService();
-    await userService.readCachedToken();
-    return accessToken==null?"F":accessToken!;
+    JournalService journalService = JournalService();
+    try {
+      await journalService.getAll();
+      return "V";
+    } catch (err) {
+      UserService userService = UserService();
+      await userService.readCachedToken();
+      return accessToken==null?"F":accessToken!;
+    }
   }
 
-  Widget mainAppScreen(bool home) {
+  Widget mainAppScreen(bool home, bool auth) {
     String initialRoute = home ? "home" : "login";
     return MaterialApp(
       title: 'Simple Journal',
@@ -50,7 +57,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: initialRoute,
       routes: {
-        initialRoute: (context) => home ? HomeScreen() : const LoginScreen(),
+        initialRoute: (context) => home ? HomeScreen(auth) : const LoginScreen(),
       },
       onGenerateRoute: (routeSettings) {
         if (routeSettings.name == "add-journal" ||
@@ -65,7 +72,7 @@ class MyApp extends StatelessWidget {
         } else if (routeSettings.name == (home ? "login" : "home")) {
           return MaterialPageRoute(
             builder: (context) {
-              return home ? const LoginScreen() : HomeScreen();
+              return home ? const LoginScreen() : HomeScreen(auth);
             },
           );
         }

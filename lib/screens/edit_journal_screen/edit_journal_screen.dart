@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memo_webapi/helpers/weekday.dart';
 import 'package:memo_webapi/models/journal.dart';
 import 'package:memo_webapi/services/journal_service.dart';
 
@@ -27,7 +26,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text(WeekDay(widget.journal.createdAt).toString()),
+            title:   Text("${widget.journal.createdAt.day}  |  ${widget.journal.createdAt.month}  |  ${widget.journal.createdAt.year}"),
             actions: [
               IconButton(
                 onPressed: () {

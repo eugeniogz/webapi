@@ -3,13 +3,13 @@ import 'package:memo_webapi/screens/edit_journal_screen/edit_journal_screen.dart
 import 'package:memo_webapi/services/journal_service.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../helpers/globals.dart';
 import '../../models/journal.dart';
 import '../../services/user_service.dart';
 import 'widgets/journal_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  final bool auth;
+  HomeScreen(this.auth, {super.key});
   final UserService userService = UserService();
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -33,36 +33,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> listActions = [];
+    listActions.add(IconButton(
+      onPressed: () {
+        refresh();
+      },
+      icon: const Icon(
+        Icons.refresh,
+      ),
+    ));
+
+    if (widget.auth) {
+      listActions.add(IconButton(
+          onPressed: () {
+            widget.userService.logout().then(
+                (value) => Navigator.pushReplacementNamed(context, 'login'));
+          },
+          icon: const Icon(
+            Icons.logout,
+          )));
+    }
     return Scaffold(
       appBar: AppBar(
         // Título basado no dia atual
         title: Text(
-          "${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}  (${user?.email})",
+          "${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}",
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              refresh();
-            },
-            icon: const Icon(
-              Icons.refresh,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              widget.userService.logout().then((value) =>  Navigator.pushReplacementNamed(context, 'login'));
-            },
-            icon: const Icon(
-              Icons.logout,
-            ),
-          ),
-        ],
+        actions: listActions,
       ),
-      // body: GridView(
-      // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //   crossAxisCount: 2,
-      //   childAspectRatio: 1.0,
-      // ),
 
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints boxConstraints) {
