@@ -6,8 +6,10 @@ class JournalCard extends StatefulWidget {
   final Journal journal;
   final DateTime showedDate;
   final Function refreshFunction;
+  final double width;
   const JournalCard({
     super.key,
+    required this.width,
     required this.journal,
     required this.showedDate,
     required this.refreshFunction,
@@ -21,10 +23,11 @@ class _JournalCardState extends State<JournalCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: ConstrainedBox(constraints: const BoxConstraints(maxHeight: 500, minHeight: 100),
+      child: ConstrainedBox(constraints: BoxConstraints(maxHeight: 250, minWidth: widget.width, minHeight: 100),
           child: Card(
             color: Theme.of(context).primaryColorLight,
-            child: Padding(
+            child: 
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(widget.journal.content,
                   softWrap: true,

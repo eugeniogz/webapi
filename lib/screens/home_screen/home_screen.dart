@@ -61,31 +61,36 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: listActions,
       ),
-
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints boxConstraints) {
-          return Row(
+          var colWidth = (boxConstraints.maxWidth-5)/2;
+          return 
+          SingleChildScrollView(child: Row(//direction: Axis.horizontal,
             children : [
-            SizedBox(width: (boxConstraints.maxWidth-5)/2,
-            child: Flow(
-              delegate: MyFlowDelegate(),
+            SizedBox(width: colWidth,
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // Flow(
+            //   delegate: MyFlowDelegate(),
               children: generateListJournalCards(
+                width: colWidth,
                 column: 1,
                 database: database,
                 refreshFunction: refresh,
               ),
           ),
         ), 
-          SizedBox(width: (boxConstraints.maxWidth-5)/2,
-            child: Flow(
-              delegate: MyFlowDelegate(),
+          SizedBox(width: colWidth,
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // Flow(
+            //   delegate: MyFlowDelegate(),
               children: generateListJournalCards(
+                width: colWidth,
                 column: 2,
                 database: database,
                 refreshFunction: refresh,
               ),
           ),
-        )]);
+        )]));
           },
       ),
       floatingActionButton: FloatingActionButton(
@@ -139,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<JournalCard> generateListJournalCards(
-    {required int column,
+    {required double width, required int column,
     required Map<String, Journal> database,
     required Function refreshFunction}) {
     // Cria uma lista de Cards vazios
@@ -150,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {
         var value = database.values.elementAt(i);
         list.add(JournalCard(
+          width: width,
           showedDate: value.createdAt,
           journal: value,
           refreshFunction: refreshFunction,
