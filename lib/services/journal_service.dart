@@ -63,7 +63,6 @@ class JournalService {
   }
 
   Future<bool> delete(Journal journal) async {
-    //String journalJSON = json.encode(journal.toMap());
     String id = journal.id;
     http.Response response = await client.delete(
       Uri.parse("$url$resource/$id"),
@@ -71,7 +70,6 @@ class JournalService {
         'Content-type': 'application/json',
         'Authorization': "Bearer $accessToken"
       },
-      //body: journalJSON,
     );
 
     if (response.statusCode < 300) {

@@ -65,10 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (BuildContext context, BoxConstraints boxConstraints) {
           var colWidth = (boxConstraints.maxWidth-5)/2;
           return 
-          SingleChildScrollView(child: Row(//direction: Axis.horizontal,
+          SingleChildScrollView(child: Flex(direction: Axis.horizontal,
             children : [
             SizedBox(width: colWidth,
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Flex(direction: Axis.vertical,
             // Flow(
             //   delegate: MyFlowDelegate(),
               children: generateListJournalCards(
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ), 
           SizedBox(width: colWidth,
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Flex(direction: Axis.vertical,
             // Flow(
             //   delegate: MyFlowDelegate(),
               children: generateListJournalCards(
