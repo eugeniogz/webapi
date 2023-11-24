@@ -2,13 +2,18 @@
 
 Projeto baseado no primeiro curso de WebAPI da Formação Flutter da alura,
 possui um caso completo de acesso a uma API rest usando json-server
-inicie o servidor com
-# cd server
-# npm start
+passos para iniciar o servidor:
+
+> cd server
+>
+> npm start
 
 para versão com login inicie o servidor com
-# cd server
-# npm run start-auth
+
+> cd server
+>
+> npm run start-auth
+
 O usuário default é j@ufmg.br, senha 12345aB
 
 # Antes de executar o projeto
