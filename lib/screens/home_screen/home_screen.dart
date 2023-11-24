@@ -57,14 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         // Título basado no dia atual
         title: Text(
-          "${currentDay.day}  |  ${currentDay.month}  |  ${currentDay.year}",
+          "${currentDay.day}/${currentDay.month}/${currentDay.year}",
         ),
         actions: listActions,
       ),
 
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints boxConstraints) {
-          return Row (children : [
+          return Row(
+            children : [
             SizedBox(width: (boxConstraints.maxWidth-5)/2,
             child: Flow(
               delegate: MyFlowDelegate(),
@@ -162,8 +163,6 @@ class _HomeScreenState extends State<HomeScreen> {
 class MyFlowDelegate extends FlowDelegate {
   @override
   void paintChildren(FlowPaintingContext context) {
-    // Layout the children here.
-    // final size = context.size;
     double y = 0;
     for (int i = 0; i < context.childCount; i++) {
       context.paintChild(i, transform: Matrix4.translationValues(0, y, 0));

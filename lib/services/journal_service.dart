@@ -8,7 +8,7 @@ import '../models/journal.dart';
 import '../helpers/globals.dart';
 
 class JournalService {
-  // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
+  
   static const String resource = "journals";
 
   http.Client client = InterceptedClient.build(

@@ -26,7 +26,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title:   Text("${widget.journal.createdAt.day}  |  ${widget.journal.createdAt.month}  |  ${widget.journal.createdAt.year}"),
+            title:   Text("${widget.journal.createdAt.day}/${widget.journal.createdAt.month}/${widget.journal.createdAt.year}"),
             actions: [
               IconButton(
                 onPressed: () {
