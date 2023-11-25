@@ -23,7 +23,7 @@ class _JournalCardState extends State<JournalCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: ConstrainedBox(constraints: BoxConstraints(maxHeight: 250, minWidth: widget.width, minHeight: 100),
+      child: ConstrainedBox(constraints: BoxConstraints(maxHeight: 400, minWidth: widget.width, minHeight: 100),
           child: Card(
             color: Theme.of(context).primaryColorLight,
             child: 

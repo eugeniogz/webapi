@@ -22,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // A base de dados mostrada na lista
   Map<String, Journal> database = {};
 
-  // final ScrollController _listScrollController = ScrollController();
   final JournalService _journalService = JournalService();
 
   @override
@@ -66,9 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
           var colWidth = (boxConstraints.maxWidth-5)/2;
           return 
           SingleChildScrollView(child: Flex(direction: Axis.horizontal,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
             children : [
             SizedBox(width: colWidth,
-            child: Flex(direction: Axis.vertical,
+            child: Align(alignment: Alignment.topCenter, child: Column(
             // Flow(
             //   delegate: MyFlowDelegate(),
               children: generateListJournalCards(
@@ -77,10 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 database: database,
                 refreshFunction: refresh,
               ),
-          ),
-        ), 
+            ))),
           SizedBox(width: colWidth,
-            child: Flex(direction: Axis.vertical,
+            child: Align(alignment: Alignment.topCenter, child: Column(
             // Flow(
             //   delegate: MyFlowDelegate(),
               children: generateListJournalCards(
@@ -89,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 database: database,
                 refreshFunction: refresh,
               ),
-          ),
-        )]));
+            ))) ,
+          ]));
           },
       ),
       floatingActionButton: FloatingActionButton(
