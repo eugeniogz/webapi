@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:memo_webapi/helpers/globals.dart';
 import 'package:memo_webapi/services/journal_service.dart';
+
 // import 'package:google_fonts/google_fonts.dart';
 
 import 'models/journal.dart';
@@ -27,7 +29,8 @@ class MyApp extends StatelessWidget {
               return mainAppScreen(false, true);
             }
           } else {
-            return const CircularProgressIndicator();
+            return const Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center , 
+              children: [SizedBox(height: 50, child: CircularProgressIndicator())]);
           }
         });
   }
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
       await journalService.get("1234");
       return "V";
     } catch (err) {
+      log(err.toString());
       UserService userService = UserService();
       await userService.readCachedToken();
       return accessToken==null?"F":accessToken!;

@@ -1,12 +1,8 @@
 import 'dart:developer';
-
 import 'package:http_interceptor/http_interceptor.dart';
-import 'package:logger/logger.dart';
-
 import '../helpers/globals.dart';
 
 class LoggingInterceptor implements InterceptorContract {
-  Logger logger = Logger(printer: PrettyPrinter(methodCount: 0));
 
   // @override
   // Future<BaseRequest> interceptRequest({required BaseRequest data}) async {
