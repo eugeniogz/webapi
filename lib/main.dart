@@ -5,11 +5,11 @@ import 'package:memo_webapi/services/journal_service.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 
-import 'models/journal.dart';
-import 'screens/edit_journal_screen/edit_journal_screen.dart';
-import 'screens/home_screen/home_screen.dart';
-import 'screens/login_screen/login_screen.dart';
-import 'services/user_service.dart';
+import 'package:memo_webapi/models/journal.dart';
+import 'package:memo_webapi/screens/edit_journal_screen/edit_journal_screen.dart';
+import 'package:memo_webapi/screens/home_screen/home_screen.dart';
+import 'package:memo_webapi/screens/login_screen/login_screen.dart';
+import 'package:memo_webapi/services/user_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +36,10 @@ class MyApp extends StatelessWidget {
   }
 
   Future<String> chekcAccessToken() async {
+    // Executar com server sem auth
+    // UserService userService = UserService();
+    // User user = User(email: "k@ufmg.br", password: "12345aB");
+    // userService.register(user);
     JournalService journalService = JournalService();
     try {
       await journalService.get("1234");

@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:memo_webapi/helpers/globals.dart';
 import 'package:memo_webapi/services/http_interceptors.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
 
-import '../models/journal.dart';
-import '../helpers/globals.dart';
+import 'package:memo_webapi/models/journal.dart';
+
 
 class JournalService {
   

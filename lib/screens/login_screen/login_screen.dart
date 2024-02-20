@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:memo_webapi/models/user.dart';
 
-import '../../models/user.dart';
-import '../../services/user_service.dart';
+import 'package:memo_webapi/services/user_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

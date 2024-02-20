@@ -3,8 +3,8 @@ import 'package:memo_webapi/screens/edit_journal_screen/edit_journal_screen.dart
 import 'package:memo_webapi/services/journal_service.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../models/journal.dart';
-import '../../services/user_service.dart';
+import 'package:memo_webapi/models/journal.dart';
+import 'package:memo_webapi/services/user_service.dart';
 import 'widgets/journal_card.dart';
 
 class HomeScreen extends StatefulWidget {

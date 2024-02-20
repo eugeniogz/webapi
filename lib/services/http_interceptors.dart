@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:http_interceptor/http_interceptor.dart';
-import '../helpers/globals.dart';
+import 'package:memo_webapi/helpers/globals.dart';
 
 class LoggingInterceptor implements InterceptorContract {
 

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:memo_webapi/helpers/globals.dart';
+import 'package:memo_webapi/models/login_response.dart';
+import 'package:memo_webapi/models/user.dart';
 
-import '../helpers/globals.dart';
-import '../models/login_response.dart';
-import '../models/user.dart';
 
 class UserService {
   // Consiga seu IP usando o comando "ipconfig" no Windows ou "ifconfig" no Linux.
